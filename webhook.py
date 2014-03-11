@@ -21,7 +21,7 @@ def webhook():
         local('source %s' % settings.VIRTUALENV)
         local('gunicorn -c gunicorn.py wsgi:myhoard')
 
-    return "Successfully deployed version %s" % current_hash
+        return "Successfully deployed version %s" % current_hash
 
 
 if __name__ == '__main__':
