@@ -11,13 +11,14 @@ app = Flask(__name__)
 def webhook():
     with lcd(settings.PROJECT_DIR):
         local('git pull origin master')
-        current_hash = local('git rev-parse --short HEAD')
+        current_hash = local('git rev-parse --short HEAD', capture=True)
 
         if os.path.isfile(settings.GUNICORN_PID_FILE):
             with open(settings.GUNICORN_PID_FILE) as pidfile:
                 gunicorn_pid = pidfile.read()
                 local('kill %s' % gunicorn_pid)
 
+        local('source %s' % settings.VIRTUALENV)
         local('gunicorn -c gunicorn.py wsgi:myhoard')
 
     return "Successfully deployed version %s" % current_hash
