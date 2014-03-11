@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def webhook():
-    return 'MyHoard WebHook works fine dude!'
+    return 'web hook works fine dude!'
 
 
 if __name__ == '__main__':
