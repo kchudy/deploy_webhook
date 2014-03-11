@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from fabric.context_managers import lcd
 from fabric.operations import local, os
+from fabvenv import virtualenv
 from flask import Flask
 import settings
 
@@ -18,8 +19,8 @@ def webhook():
                 gunicorn_pid = pidfile.read()
                 local('kill %s' % gunicorn_pid)
 
-        local('source %s' % settings.VIRTUALENV)
-        local('gunicorn -c gunicorn.py wsgi:myhoard')
+        with virtualenv(settings.VIRTUALENV):
+            local('gunicorn -c gunicorn.py wsgi:myhoard')
 
         return "Successfully deployed version %s" % current_hash
 
