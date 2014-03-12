@@ -10,7 +10,7 @@ git pull origin master
 
 if [ -f $GUNICORN_PID_FILE ];
 then
-    kill `cat myhoard.pid`
+    kill `cat $GUNICORN_PID_FILE`
 fi
 
 source $VIRTUALENV/bin/activate
