@@ -4,13 +4,14 @@ PROJECT_DIR=$1
 VIRTUALENV=$2
 GUNICORN_PID_FILE=$3
 
-cd PROJECT_DIR
+cd $PROJECT_DIR
 
 git pull origin master
 
 if [ -f $GUNICORN_PID_FILE ];
 then
     kill `cat myhoard.pid`
+fi
 
 source $VIRTUALENV/bin/activate
 

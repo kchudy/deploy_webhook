@@ -5,10 +5,9 @@ import settings
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def webhook():
-    subprocess.call(['./webhook', settings.PROJECT_DIR, settings.VIRTUALENV, settings.GUNICORN_PID_FILE])
+    subprocess.call(['./webhook.sh', settings.PROJECT_DIR, settings.VIRTUALENV, settings.GUNICORN_PID_FILE])
     return "Successfully deployed new version"
 
 if __name__ == '__main__':
