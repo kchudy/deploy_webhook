@@ -13,8 +13,8 @@ def webhook():
 
         if branch == 'refs/heads/master':
             subprocess.call(['./webhook.sh', settings.PROJECT_DIR, settings.VIRTUALENV, settings.GUNICORN_PID_FILE])
-            return "Successfully deployed new version"
-
+            return 'Successfully deployed new version'
+    return ''
 
 if __name__ == '__main__':
     app.run()

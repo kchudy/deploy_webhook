@@ -14,5 +14,5 @@ then
 fi
 
 source $VIRTUALENV/bin/activate
-
+pip install -r requirements.txt
 gunicorn -c gunicorn.py wsgi:myhoard
