@@ -16,8 +16,6 @@ def webhook():
             settings = importlib.import_module("settings.%s" % branch)
         except ImportError, e:
             return 'Settings import failed. Details: %s' % e.message
-        except AttributeError, e:
-            return 'Settings import failed. Details: %s' % e.message
 
         subprocess.call(['./webhook.sh', settings.PROJECT_DIR, settings.VIRTUALENV, settings.GUNICORN_PID_FILE, branch])
         return 'Successfully deployed new version'
