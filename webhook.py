@@ -13,8 +13,7 @@ def webhook():
         branch = ref[ref.rfind("/")+1:]
 
         try:
-            module = importlib.import_module("settings", branch)
-            settings = getattr(module, branch)
+            settings = importlib.import_module("settings.%s" % branch)
         except ImportError, e:
             return 'Settings import failed. Details: %s' % e.message
         except AttributeError, e:
