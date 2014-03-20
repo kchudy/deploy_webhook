@@ -3,16 +3,18 @@
 PROJECT_DIR=$1
 VIRTUALENV=$2
 GUNICORN_PID_FILE=$3
+BRANCH=$4
 
-cd $PROJECT_DIR
+cd ${PROJECT_DIR}
 
-git pull origin master
+git checkout ${BRANCH}
+git pull origin ${BRANCH}
 
-if [ -f $GUNICORN_PID_FILE ];
+if [ -f ${GUNICORN_PID_FILE} ];
 then
-    kill `cat $GUNICORN_PID_FILE`
+    kill `cat ${GUNICORN_PID_FILE}`
 fi
 
-source $VIRTUALENV/bin/activate
+source ${VIRTUALENV}/bin/activate
 pip install -r requirements.txt
 gunicorn -c gunicorn.py wsgi:myhoard
