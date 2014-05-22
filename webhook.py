@@ -18,7 +18,7 @@ def webhook():
             return 'Settings import failed. Details: %s' % e.message
 
         subprocess.call(['./webhook.sh', settings.PROJECT_DIR, settings.VIRTUALENV, settings.GUNICORN_PID_FILE, branch,
-                         settings.SETTINGS_MODULE])
+                         settings.SETTINGS_MODULE, settings.LOGS_DIR])
         return 'Successfully deployed new version'
     return ''
 
