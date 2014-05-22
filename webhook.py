@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import importlib
 import subprocess
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -17,9 +17,13 @@ def webhook():
         except ImportError, e:
             return 'Settings import failed. Details: %s' % e.message
 
-        subprocess.call(['./webhook.sh', settings.PROJECT_DIR, settings.VIRTUALENV, settings.GUNICORN_PID_FILE, branch,
-                         settings.SETTINGS_MODULE, settings.LOGS_DIR])
-        return 'Successfully deployed new version'
+        exit_code = subprocess.call(['./webhook.sh', settings.PROJECT_DIR, settings.VIRTUALENV, settings.GUNICORN_PID_FILE, branch, settings.SETTINGS_MODULE, settings.LOGS_DIR])
+
+        response = {
+            'exit_code': exit_code,
+            'branch': branch
+        }
+        return jsonify(**response)
     return ''
 
 
